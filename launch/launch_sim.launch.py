@@ -36,6 +36,12 @@ def generate_launch_description():
                         arguments=['-topic', 'robot_description',
                                    '-entity', 'my_bot'],
                         output='screen')
+    
+    controller_manager = Node(package='controller_manager',
+                            executable='ros2_control_node',
+                            parameters=[os.path.join(
+                                get_package_share_directory(package_name), 'config', 'my_controllers.yaml')],
+                            output='screen')
 
 
 
@@ -44,4 +50,5 @@ def generate_launch_description():
         rsp,
         gazebo,
         spawn_entity,
+        controller_manager,
     ])

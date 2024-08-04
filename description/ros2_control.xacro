@@ -1,9 +1,11 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <!--Details of the hardware interface (for the controller manager)-->
     <ros2_control name="GazeboSystem" type="system">
         <hardware>
+        <!--Name of the hardware interface it needs to load up-->
             <plugin>gazebo_ros2_control/GazeboSystem</plugin>
-        </hardware>
+        </hardware> 
         <joint name="left_wheel_joint">
             <command_interface name="velocity">
                 <param name="min">-10</param>
@@ -22,8 +24,9 @@
         </joint>
     </ros2_control>
 
+    <!--Tell Gazebo to load up the extra code that it needs-->
     <gazebo>
-        <plugin name="gazebo_ros2_control" filename="libgazebo_ros2_control.so">
+        <plugin name="gazebo_ros2_control" filename="libgazebo_ros2_control.so"> <!--plugin file:libgazebo_ros2_control.so-->
             <parameters>$(find my_bot)/config/my_controllers.yaml</parameters>
             <parameters>$(find my_bot)/config/gaz_ros2_ctl_use_sim.yaml</parameters>
         </plugin>
@@ -33,7 +36,7 @@
 
 <!--Hardware Interface-->
 <!-- Node <-> Controllers <-> Conrtoller Manager <-> Resource Manager <-> robot -->
-<!--          ^ yaml:<my_controllers.yaml>           ^ URDF <ros2_comtral>     -->
+<!--          ^ yaml:<my_controllers.yaml>           ^ URDF <ros2_control.xacro>  -->
 <!--a YAML file with the various parameters we need, and pass that in to the controller manager-->
 <!--controller manager uses something called the resource manager which gathers up all the hardware interfaces and expose them all together-->
 <!--URDF : made Resource Manager understand know about the hardware interfaces-->
